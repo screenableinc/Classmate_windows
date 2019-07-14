@@ -1,0 +1,427 @@
+#:import C kivy.utils.get_color_from_hex
+<screenManager>:
+
+    LoginScreen:
+    MainScreen:
+
+<LoginScreen>:
+    canvas.before:
+        Rectangle:
+            size: self.size
+            pos:self.pos
+            source:"./dependancies/Blue Raspberry.jpg"
+
+    FloatLayout:
+        size_hint:None,None
+#        TODO
+#        remember to scale this according to screen density
+        size:300,300
+
+        pos_hint:{'center_y':.9, 'center_x':.5}
+        BoxLayout:
+            orientation:"vertical"
+            TextInput:
+                id:student_id
+                hint_text:"e.g ECA1713710"
+            TextInput:
+                id:password
+                hint_text:"Password"
+            ButtonImage:
+                source:"./dependancies/button_login.png"
+#                keep_ratio:False
+#                allow_stretch:True
+#                size_hint: 1, None
+#                size:(self.x, 30)
+#                on_press:self.parent.parent.login()
+
+
+
+
+
+
+<MainScreen>:
+    name:"main"
+
+
+    BoxLayout:
+
+        orientation:"vertical"
+        BoxLayout:
+            size_hint_y:None
+            height:dp(60)
+        BoxLayout:
+            orientation:'horizontal'
+            SideNav:
+                id:side
+
+
+
+
+            BoxLayout:
+                orientation:'vertical'
+                canvas.before:
+                    Color:
+                        rgba:  16/255, 16/255, 16/255,1
+                    Rectangle:
+
+                        size:self.size
+                        pos:self.pos
+                Days:
+
+    #            classes
+                BoxLayout:
+#                    size_hint_y:None
+#                    height:dp(560)
+                    orientation:'horizontal'
+                    Arrow:
+                        size_hint_x:None
+                        width:dp(25)
+                        source:'./dependancies/left.png'
+                    ScrollView:
+                        bar_width:10
+                        scroll_type:['bars']
+
+
+
+                        padding:15
+                        BoxLayout:
+                            id:_classes
+                            size_hint_y:None
+                            height: self.minimum_height
+                            padding:15
+                            orientation:'vertical'
+
+                    Arrow:
+                        size_hint_x:None
+                        width:dp(25)
+                        source:'./dependancies/right.png'
+    #            _____________________________right____________________________________
+            RightSideNav:
+                orientation:'vertical'
+                size_hint_x:None
+                width:dp(50)
+                canvas.before:
+                    Color:
+                        rgba:  8/255, 8/255, 8/255,1
+                    Rectangle:
+
+                        size:self.size
+                        pos:self.pos
+
+
+
+
+
+
+
+    #            BoxLayout:
+    #
+    #            BoxLayout:
+    #                size_hint:None, None
+    #                width:dp(55)
+    #                height: dp(20)
+    #                Image:
+    #                    source:"./dependancies/min.ico"
+    #                Image:
+    #                    source:"./dependancies/close.png"
+
+
+
+
+
+<CloseMinArea>:
+    canvas.before:
+        Rectangle:
+
+            size:self.size
+            pos:self.pos
+            Color:
+                rgba:(0,0,0,0)
+    Image:
+        source:"./dependancies/min.ico"
+    Image:
+        source:"./dependancies/close.png"
+<SideNav>:
+    innerBox:innerBox
+    size_hint_x: None
+    width:275
+
+    canvas.before:
+        Color:
+            rgba:  8/255, 8/255, 8/255,1
+        Rectangle:
+
+            size:self.size
+            pos:self.pos
+
+
+
+    BoxLayout:
+        id:innerBox
+        orientation: "vertical"
+
+
+
+#            add grid layout with all days of the week
+
+<MenuItem>
+    _text:""
+    orientation: "horizontal"
+    size_hint_y:None
+    height:dp(50)
+
+    Label:
+        text:self.parent._text
+        color: 0,0,0,1
+
+<Item>:
+    _source:''
+    _text:''
+    orientation:'horizontal'
+    size_hint_y:None
+    height:dp(34)
+    padding:dp(5)
+
+    Image:
+        source:self.parent._source
+        size_hint_x:None
+        pos_hint:{'center_x':.5,'center_y':.5}
+        size_hint_y:None
+        height:dp(24)
+
+        width:dp(24)
+    Label:
+        text:self.parent._text
+        text_size:self.size
+
+        halign:'left'
+        valign:'middle'
+
+<ClassTemplate>:
+    orientation:'horizontal'
+    size_hint_y:None
+    padding:10
+    height:dp(160)
+    _tuple:
+    _course:
+    _time:
+    _room:
+    _course_code:
+    _lecturer:
+    _campus:
+
+
+
+    BoxLayout:
+        size_hint_x:None
+        width:dp(190)
+        canvas.before:
+            Color:
+        #            (92, 229, 250)
+                rgba:  self.parent._tuple
+            Rectangle:
+
+                size:self.size
+                pos:self.pos
+
+        Label:
+            id:'code'
+            font_size:dp(40)
+            text:self.parent._course_code
+
+
+
+    BoxLayout:
+        size_hint_y:None
+        canvas.before:
+            Color:
+        #            (92, 229, 250)
+                rgba:  (8/255,8/255,8/255,1)
+            Rectangle:
+
+                size:self.size
+                pos:self.pos
+        padding:10
+        height:dp(100)
+        pos_hint:{'center_x':.5,'center_y':.5}
+        orientation:'vertical'
+        Label:
+            id:"course_name"
+            text: "Course: "+self.parent.parent._course
+            text_size:self.size
+
+            halign:'left'
+            valign:'middle'
+        Label:
+            text_size:self.size
+
+            halign:'left'
+            valign:'middle'
+            id:"lecturer"
+            text:"Lecturer: "+self.parent.parent._lecturer
+        Label:
+            text_size:self.size
+
+            halign:'left'
+            valign:'middle'
+            id:"room"
+            text:"Room: "+self.parent.parent._room
+        Label:
+            text_size:self.size
+
+            halign:'left'
+            valign:'middle'
+            id:"campus"
+            markup:True
+            text:'[b]Campus:[/b] '+self._campus
+<Days>:
+    orientation:'horizontal'
+    size_hint_y:None
+    height:dp(50)
+    BoxLayout:
+        orientation:'vertical'
+        padding:10
+        Label:
+            text:"MON"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"TUE"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"WED"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"THU"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"FRI"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"SAT"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+    BoxLayout:
+        padding:10
+        orientation:'vertical'
+        Label:
+            text:"SUN"
+            font_size:dp(24)
+        BoxLayout:
+            size_hint_y:None
+            height:dp(2)
+            canvas.before:
+                Color:
+            #            (92, 229, 250)
+                    rgba:  0/255, 237/255, 47/255,1
+                Rectangle:
+
+                    size:self.size
+                    pos:self.pos
+
+
+
+<Arrow>:
+    canvas.before:
+        Color:
+    #            (92, 229, 250)
+            rgba:  4/255, 4/255, 4/255,1
+        Rectangle:
+
+            size:self.size
+            pos:self.pos
+
+<RightSideNav>:
+    RightSideIcon:
+        size_hint_y:None
+        height:dp(40)
+        source:'./dependancies/sync.png'
+
+    RightSideIcon:
+        size_hint_y:None
+        height:dp(40)
+        source:'./dependancies/settings.png'
